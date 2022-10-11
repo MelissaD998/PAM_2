@@ -5,7 +5,7 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatelessWidget {   //dont change
   const MyApp({super.key});
 
   // This widget is the root of your application.
@@ -14,14 +14,14 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.purple,
       ),
       home: const AgeCalculator(),
     );
   }
 }
 
-class AgeCalculator extends StatefulWidget {
+class AgeCalculator extends StatefulWidget {    //dinamic widgets
   const AgeCalculator({super.key});
 
   @override
@@ -34,7 +34,6 @@ class _AgeCalculatorState extends State<AgeCalculator> {
 
   @override
   Widget build(BuildContext context) {
-    //implemetarea logicii de calculare
     return Scaffold(
       appBar: AppBar(
         title: const Text('Age Calculator'),
@@ -44,12 +43,13 @@ class _AgeCalculatorState extends State<AgeCalculator> {
           Padding(
             padding: const EdgeInsets.fromLTRB(10, 100, 10, 10),
             child: Text(result,
-                textAlign: TextAlign.center, style: TextStyle(fontSize: 20)),
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontSize: 20)),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(150, 150, 150, 150),
             child: ElevatedButton(
-              child: const Text('Calculate'),
+              child: const Text('Pick your birthday'),
               onPressed: () {
                 calculateAge();
               },
@@ -74,7 +74,7 @@ class _AgeCalculatorState extends State<AgeCalculator> {
     int currentDay = int.parse(DateFormat("dd").format(DateTime.now()));
     int currentMonth = int.parse(DateFormat("MM").format(DateTime.now()));
     int currentYear = int.parse(DateFormat("yy").format(DateTime.now()));
-
+      //data validation
     if (day <= currentDay) {
       day = currentDay - day;
     } else {
@@ -86,10 +86,10 @@ class _AgeCalculatorState extends State<AgeCalculator> {
       month = 12 - month;
       year -= 1;
     }
-    year = currentYear - year;
+    year = currentYear > year ? currentYear - year : year - currentYear;
 
-    setState(() {
-      result = "You are $year years $month months $day days old";
+    setState(() { //setarea starii
+      result = "You are $year years $month months and $day days old";
     });
   }
 }
